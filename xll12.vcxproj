@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\paste_function.cpp" />
+    <ClCompile Include="xll\addin.cpp" />
     <ClCompile Include="xll\auto.cpp" />
     <ClCompile Include="xll\debug.cpp" />
     <ClCompile Include="xll\dllmain.cpp" />

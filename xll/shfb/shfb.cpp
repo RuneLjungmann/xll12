@@ -74,7 +74,7 @@ public:
     }
     operator bool() const
     {
-        return h.isNum();
+        return h.isNum() == TRUE;
     }
     OPER read() const
     {
@@ -225,7 +225,9 @@ OPER content_layout(const OPER& base)
 
     std::map<OPER, OPER> topicMap;
 
-    for (const auto& [key, arg] : AddIn::KeyArgsMap) {
+    for (const auto& item : AddIn::KeyArgsMap) {
+        auto& key = item.first;
+        auto& arg = item.second;
         if (!arg.Documentation().empty()) {
             if (arg.isFunction()) {
                 OPER category = arg.Category();
@@ -241,7 +243,9 @@ OPER content_layout(const OPER& base)
         }
     }
 
-    for (const auto& [cat,topic] : topicMap) {
+    for (const auto& item : topicMap) {
+        auto& cat = item.first;
+        auto& topic = item.second;
         OPER attr = Attr(L"id", Args::Guid(cat))
             & Attr(L"title", cat) & visible;
         Topics &= OPER(L"\n  ");
@@ -284,7 +288,9 @@ OPER template_shfbproj(const OPER& base)
     OPER ItemGroups;
     std::set<OPER> igs;
 
-    for (const auto& [key, arg] : AddIn::KeyArgsMap) {
+    for (const auto& item : AddIn::KeyArgsMap) {
+        auto& key = item.first;
+        auto& arg = item.second;
         if (!arg.Documentation().empty()) {
             OPER name;
             if (arg.isDocument()) {
@@ -341,7 +347,9 @@ void make_shfb(const OPER& lib)
 
     xlfFile at(dir & OPER(L"alias.txt"));
     xlfFile mh(dir & OPER(L"map.h"));
-    for (const auto& [key, arg] : AddIn::KeyArgsMap) {
+    for (const auto& item : AddIn::KeyArgsMap) {
+        auto& key = item.first;
+        auto& arg = item.second;
         if (!arg.Documentation().empty()) {
             if (arg.isDocument()) {
                 // Assumes only one documentation add-in per category.

@@ -11,8 +11,8 @@ namespace xll {
 	/// Manage the lifecycle of an Excel add-in.
 	class AddIn {
     public:
-        static inline std::map<OPER, Args> KeyArgsMap;
-        static inline std::map<double, OPER> RegIdKeyMap;
+        static std::map<OPER, Args> KeyArgsMap;
+        static std::map<double, OPER> RegIdKeyMap;
 
         /// Register and Unregister an add-in when Excel calls xlAutoOpen and xlAutoClose.
         AddIn(const Args& args)
@@ -21,8 +21,8 @@ namespace xll {
                 Auto<Open> ao([=]() {
                     try {
                         OPER oReg = args.Register();
-                        RegIdKeyMap.insert(std::pair{ oReg.val.num, key });
-                        KeyArgsMap.insert(std::pair{ key, args });
+                        RegIdKeyMap.insert(std::make_pair(oReg.val.num, key));
+                        KeyArgsMap.insert(std::make_pair(key, args));
 
                         return TRUE;
                     }
